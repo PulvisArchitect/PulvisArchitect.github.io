@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import WorksContent from '../components/pages/WorksContent.astro';
+import { ui } from '../data/i18n';
+
+const lang = 'ja';
+---
+
+<Base lang={lang} currentKey="works" title={ui[lang].works.title}>
+  <WorksContent lang={lang} />
+</Base>

@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import SlidesContent from '../components/pages/SlidesContent.astro';
+import { ui } from '../data/i18n';
+
+const lang = 'ja';
+---
+
+<Base lang={lang} currentKey="slides" title={ui[lang].slides.title}>
+  <SlidesContent lang={lang} />
+</Base>

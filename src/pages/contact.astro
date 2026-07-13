@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactContent from '../components/pages/ContactContent.astro';
+import { ui } from '../data/i18n';
+
+const lang = 'ja';
+---
+
+<Base lang={lang} currentKey="contact" title={ui[lang].contact.title}>
+  <ContactContent lang={lang} />
+</Base>

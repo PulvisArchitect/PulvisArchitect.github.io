@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import AboutContent from '../../components/pages/AboutContent.astro';
+import { ui } from '../../data/i18n';
+
+const lang = 'en';
+---
+
+<Base lang={lang} currentKey="about" title={ui[lang].about.title}>
+  <AboutContent lang={lang} />
+</Base>

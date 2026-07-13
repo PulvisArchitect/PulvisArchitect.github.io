@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import EventsContent from '../components/pages/EventsContent.astro';
+import { ui } from '../data/i18n';
+
+const lang = 'ja';
+---
+
+<Base lang={lang} currentKey="events" title={ui[lang].events.title}>
+  <EventsContent lang={lang} />
+</Base>
