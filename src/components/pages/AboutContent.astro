@@ -1,0 +1,139 @@
+---
+import { ui, type Locale } from '../../data/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const a = t.about;
+---
+
+<!-- Page title -->
+<section class="pv-about-head">
+  <div class="pv-kicker pv-about-kicker">
+    <span class="pv-kicker__dot"></span>
+    <span class="pv-kicker__label">{a.kicker}</span>
+  </div>
+  <h1 class="pv-about-title">{a.title}</h1>
+  <p class="pv-about-lead">{a.lead}</p>
+</section>
+
+<!-- Activities -->
+<section class="pv-about-sec">
+  <h2 class="pv-about-h2">{a.activitiesHeading}</h2>
+  <div class="pv-about-list">
+    {
+      a.activities.map((ac) => (
+        <div class="pv-actrow">
+          <div class="pv-actrow__name">{ac.name}</div>
+          <div class="pv-actrow__desc">{ac.desc}</div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<!-- Organizer -->
+<section class="pv-about-sec pv-about-sec--bordered">
+  <h2 class="pv-about-h2 pv-about-h2--tight">{a.organizerHeading}</h2>
+  <p class="pv-about-body">{a.organizerBody}</p>
+  <div class="pv-about-note">
+    <p>{a.somaNote} <a href="https://soma-arc.net">soma-arc.net</a></p>
+  </div>
+</section>
+
+<style>
+  .pv-about-head {
+    padding: clamp(28px, 3.5vw, 40px) var(--pv-pad-x) clamp(32px, 4vw, 44px);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .pv-about-kicker {
+    margin-bottom: 20px;
+  }
+  .pv-about-title {
+    margin: 0 0 24px;
+    font-family: var(--pv-serif);
+    font-weight: 700;
+    font-size: clamp(26px, 3vw + 8px, 38px);
+    line-height: 1.5;
+    color: var(--pv-ink);
+    text-wrap: balance;
+  }
+  .pv-about-lead {
+    margin: 0;
+    font-size: 16px;
+    line-height: 2;
+    color: rgba(27, 34, 44, 0.8);
+    max-width: 68ch;
+    word-break: auto-phrase;
+    text-wrap: pretty;
+  }
+
+  .pv-about-sec {
+    padding: clamp(36px, 4.5vw, 52px) var(--pv-pad-x);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .pv-about-sec--bordered {
+    border-bottom: 1px solid var(--pv-border);
+  }
+  .pv-about-h2 {
+    margin: 0 0 24px;
+    font-family: var(--pv-serif);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--pv-ink);
+  }
+  .pv-about-h2--tight {
+    margin-bottom: 20px;
+  }
+
+  .pv-about-list {
+    border-top: 1px solid var(--pv-border);
+  }
+  .pv-actrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--pv-border);
+  }
+  .pv-actrow__name {
+    flex: 0 0 200px;
+    font-family: var(--pv-serif);
+    font-size: 16px;
+    color: var(--pv-ink);
+  }
+  .pv-actrow__desc {
+    flex: 1 1 260px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--pv-ink-78);
+    min-width: 0;
+  }
+
+  .pv-about-body {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 2;
+    color: rgba(27, 34, 44, 0.8);
+    max-width: 68ch;
+    word-break: auto-phrase;
+    text-wrap: pretty;
+  }
+  .pv-about-note {
+    padding: 20px 24px;
+    background: var(--pv-panel);
+    border-left: 3px solid var(--pv-accent);
+  }
+  .pv-about-note p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(27, 34, 44, 0.85);
+  }
+</style>

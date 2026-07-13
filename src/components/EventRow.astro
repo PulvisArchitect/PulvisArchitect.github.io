@@ -1,0 +1,81 @@
+---
+import type { SiteEvent, Locale } from '../data/site';
+import { eventStyle } from '../data/i18n';
+
+interface Props {
+  event: SiteEvent;
+  lang: Locale;
+  variant?: 'line' | 'list';
+}
+
+const { event, lang, variant = 'line' } = Astro.props;
+const s = eventStyle(event.status, lang);
+const date = lang === 'en' && event.dateEn ? event.dateEn : event.date;
+---
+
+{
+  variant === 'line' ? (
+    <div class="pv-erow pv-erow--line">
+      <div class="pv-erow__date" style={`color:${s.dateColor}`}>{date}</div>
+      <div class="pv-erow__title" style={`color:${s.titleColor}`}>{event.title[lang]}</div>
+      <div class="pv-erow__venue" style={`color:${s.venueColor}`}>{event.venue[lang]}</div>
+      <div class="pv-status" style={`color:${s.statusColor};border:${s.statusBorder}`}>{s.label}</div>
+    </div>
+  ) : (
+    <div class="pv-erow pv-erow--list">
+      <div class="pv-erow__date" style={`color:${s.dateColor}`}>{date}</div>
+      <div class="pv-erow__main">
+        <div class="pv-erow__title" style={`color:${s.titleColor}`}>{event.title[lang]}</div>
+        <div class="pv-erow__venue" style={`margin-top:4px;color:${s.venueColor}`}>{event.venue[lang]}</div>
+      </div>
+      <div class="pv-status" style={`color:${s.statusColor};border:${s.statusBorder}`}>{s.label}</div>
+    </div>
+  )
+}
+
+<style>
+  .pv-erow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+  }
+  .pv-erow--line {
+    padding: 16px 0;
+    border-top: 1px solid var(--pv-border);
+  }
+  .pv-erow--list {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--pv-border);
+  }
+  .pv-erow__date {
+    font: 13px var(--pv-mono);
+  }
+  .pv-erow--line .pv-erow__date {
+    flex: 1 1 130px;
+  }
+  .pv-erow--list .pv-erow__date {
+    flex: 0 0 130px;
+  }
+  .pv-erow__title {
+    font-family: var(--pv-serif);
+  }
+  .pv-erow--line .pv-erow__title {
+    flex: 2 1 200px;
+    font-size: 16px;
+  }
+  .pv-erow--list .pv-erow__title {
+    font-size: 17px;
+  }
+  .pv-erow--line .pv-erow__venue {
+    flex: 1 1 180px;
+    font-size: 13px;
+  }
+  .pv-erow--list .pv-erow__venue {
+    font-size: 13px;
+  }
+  .pv-erow__main {
+    flex: 2 1 220px;
+    min-width: 0;
+  }
+</style>

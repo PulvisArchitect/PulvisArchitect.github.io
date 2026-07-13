@@ -1,0 +1,67 @@
+---
+import { ui, type Locale } from '../../data/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const c = t.contact;
+---
+
+<section class="pv-phead" style="--pv-maxw:840px">
+  <div class="pv-kicker">
+    <span class="pv-kicker__dot"></span>
+    <span class="pv-kicker__label">{c.kicker}</span>
+  </div>
+  <h1 class="pv-page-title">{c.title}</h1>
+  <p class="pv-lead">{c.lead}</p>
+</section>
+
+<section class="pv-contact-section">
+  <div class="pv-contact-list">
+    {
+      c.links.map((link) => (
+        <a class="pv-contact-row" href={link.href}>
+          <div class="pv-contact-row__label">{link.label}</div>
+          <div class="pv-contact-row__value">{link.value}</div>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .pv-contact-section {
+    padding: clamp(24px, 3vw, 36px) var(--pv-pad-x) clamp(44px, 6vw, 64px);
+    max-width: 840px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .pv-contact-list {
+    border-top: 1px solid var(--pv-border);
+  }
+  .pv-contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 20px;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--pv-border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .pv-contact-row__label {
+    flex: 0 0 130px;
+    font: 600 12px var(--pv-mono);
+    letter-spacing: 0.08em;
+    color: var(--pv-accent);
+  }
+  .pv-contact-row__value {
+    flex: 1 1 220px;
+    font-size: 15px;
+    color: var(--pv-accent);
+    min-width: 0;
+  }
+</style>

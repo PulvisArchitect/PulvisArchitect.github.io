@@ -1,0 +1,55 @@
+---
+import type { Slide, Locale } from '../data/site';
+import { ui } from '../data/i18n';
+
+interface Props {
+  slide: Slide;
+  lang: Locale;
+}
+
+const { slide, lang } = Astro.props;
+const t = ui[lang];
+const meta = `${slide.date} — ${slide.event[lang]}`;
+---
+
+<div class="pv-srow">
+  <div class="pv-srow__info">
+    <div class="pv-meta pv-srow__meta">{meta}</div>
+    <div class="pv-srow__title">{slide.title[lang]}</div>
+  </div>
+  <div class="pv-srow__links">
+    <a class="pv-link" href={slide.web}>{t.slides.web} →</a>
+    <a class="pv-link--muted" href={slide.pdf}>{t.slides.pdf} →</a>
+  </div>
+</div>
+
+<style>
+  .pv-srow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--pv-border);
+  }
+  .pv-srow__info {
+    flex: 1 1 320px;
+    min-width: 0;
+  }
+  .pv-srow__meta {
+    color: var(--pv-ink-60);
+    margin-bottom: 7px;
+  }
+  .pv-srow__title {
+    font-family: var(--pv-serif);
+    font-size: 19px;
+    color: var(--pv-ink);
+  }
+  .pv-srow__links {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 22px;
+    font-size: 13px;
+    margin-left: auto;
+  }
+</style>

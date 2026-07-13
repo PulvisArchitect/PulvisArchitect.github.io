@@ -1,0 +1,44 @@
+---
+import type { Work, Locale } from '../data/site';
+
+interface Props {
+  work: Work;
+  lang: Locale;
+  showCategory?: boolean;
+}
+
+const { work, lang, showCategory = false } = Astro.props;
+---
+
+<div class="pv-work">
+  <div class="pv-work__img pv-stripe">
+    <span class="pv-meta">{work.imgLabel}</span>
+  </div>
+  {
+    showCategory ? (
+      <div class="pv-work__catrow">
+        <span class="pv-work__cat">{work.category}</span>
+        <span class="pv-meta pv-work__metadim">{work.meta}</span>
+      </div>
+    ) : (
+      <div class="pv-meta pv-work__meta">{work.meta}</div>
+    )
+  }
+  <div class="pv-work__title">{work.title[lang]}</div>
+  <div class="pv-work__desc">{work.desc[lang]}</div>
+</div>
+
+<style>
+  .pv-work__meta {
+    margin-top: 18px;
+  }
+  .pv-work__catrow {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pv-work__metadim {
+    color: var(--pv-ink-60);
+  }
+</style>
