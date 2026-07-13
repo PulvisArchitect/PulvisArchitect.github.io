@@ -1,0 +1,23 @@
+---
+import { ui, footerLinks, type Locale } from '../data/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<footer class="pv-footer">
+  <div class="pv-footer__info">
+    <div class="pv-footer__brand">Pulvis Architect</div>
+    <div class="pv-footer__meta">
+      {t.footerCopyright}<br />
+      {t.footerNote} <a href="https://soma-arc.net">soma-arc.net</a>
+    </div>
+  </div>
+  <div class="pv-footer__links">
+    {footerLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </div>
+</footer>

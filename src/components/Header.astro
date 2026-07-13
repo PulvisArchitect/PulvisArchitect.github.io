@@ -1,0 +1,80 @@
+---
+import {
+  ui,
+  navItems,
+  localizedHref,
+  altLocaleHref,
+  type Locale
+} from '../data/i18n';
+
+interface Props {
+  lang: Locale;
+  currentKey: string;
+}
+
+const { lang, currentKey } = Astro.props;
+const t = ui[lang];
+
+const jaHref = altLocaleHref(currentKey, 'ja');
+const enHref = altLocaleHref(currentKey, 'en');
+---
+
+<div class="pv-header-wrap" data-open="false">
+  <header class="pv-header">
+    <a href={localizedHref(lang, '')} class="pv-brand">
+      <span>Pulvis Architect</span>
+    </a>
+
+    <nav class="pv-nav">
+      {
+        navItems.map((item) => (
+          <a
+            href={localizedHref(lang, item.path)}
+            class:list={['pv-nav__link', { 'is-active': item.key === currentKey }]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="pv-lang">
+        <a href={jaHref} class:list={['pv-lang__opt', { 'is-active': lang === 'ja' }]}>{t.langJa}</a>
+        <span>｜</span>
+        <a href={enHref} class:list={['pv-lang__opt', { 'is-active': lang === 'en' }]}>{t.langEn}</a>
+      </div>
+    </nav>
+
+    <button class="pv-hamburger" aria-label="Menu" aria-expanded="false" data-menu-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <nav class="pv-mobile-nav">
+    {
+      navItems.map((item) => (
+        <a
+          href={localizedHref(lang, item.path)}
+          class:list={['pv-mobile-nav__link', { 'is-active': item.key === currentKey }]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <div class="pv-mobile-lang">
+      <a href={jaHref} class:list={['pv-lang__opt', { 'is-active': lang === 'ja' }]}>{t.langJa}</a>
+      <span>｜</span>
+      <a href={enHref} class:list={['pv-lang__opt', { 'is-active': lang === 'en' }]}>{t.langEn}</a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>('.pv-header-wrap');
+  const toggle = wrap?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  toggle?.addEventListener('click', () => {
+    const open = wrap!.getAttribute('data-open') === 'true';
+    wrap!.setAttribute('data-open', String(!open));
+    toggle.setAttribute('aria-expanded', String(!open));
+  });
+</script>
